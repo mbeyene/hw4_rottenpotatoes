@@ -8,12 +8,12 @@ class MoviesController < ApplicationController
 
   def similar
       @current_movie = Movie.find(params[:id]) 
-      #raise @current_movie.director
+      #raise @current_movie.inspect
       if @current_movie.director.nil? || @current_movie.director==""
            flash[:notice] = "'#{@current_movie.title}' has no director info"
            redirect_to movies_path
       end
-     @similar_movies = Movie.where("director=?", @current_movie.director)#find_all_by_director(@current_Movie.director)
+     @similar_movies = Movie.find_all_movies_by_director(@current_movie.director)
      
      #if @similar_movies.empty?
      #   raise @similar_movies.inspect
